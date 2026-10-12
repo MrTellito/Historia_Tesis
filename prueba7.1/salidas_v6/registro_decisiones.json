@@ -1,0 +1,437 @@
+{
+  "glp_granel_litros_convertidos": 306931,
+  "glp_envasado_marca_principal": {
+    "locales": 11239,
+    "reportes_descartados": 392149
+  },
+  "seleccion": {
+    "solo venta al publico": 595465,
+    "GLP: solo usuario o consumidor final": 3023,
+    "productos fuera de los cinco combustibles": 2438109,
+    "GLP a granel en kilogramos (no convertible)": 12,
+    "GLP envasado: marcas distintas de la principal": 392149
+  },
+  "limpieza": {
+    "duplicados": 9889,
+    "nulos_o_no_positivos": 19,
+    "fuera_de_[0.5, 2.0]_x_mediana_mensual": 5458,
+    "reportes_finales": 11718907
+  },
+  "dias_arrastre": 60,
+  "variables": {
+    "usar_nuevas": true,
+    "variables": [
+      "combustible_code",
+      "precio",
+      "delta_1_pct",
+      "delta_3_pct",
+      "delta_7_pct",
+      "desv_media_movil_pct",
+      "volatilidad_7",
+      "dias_sin_cambio",
+      "magnitud_ultimo_cambio_pct",
+      "n_cambios_14",
+      "desv_mercado_pct",
+      "percentil_mercado",
+      "mercado_delta_1_pct",
+      "dia_semana",
+      "n_cambios_7",
+      "n_cambios_28",
+      "mercado_pct_cambia",
+      "n_cambios_90",
+      "frac_subidas_28",
+      "reportes_sin_cambio_28",
+      "desv_depto_pct",
+      "depto_pct_cambia",
+      "mes",
+      "actividad_code",
+      "depto_code",
+      "n_productos"
+    ]
+  },
+  "historia": {
+    "elegida": "6 meses",
+    "dias": 182
+  },
+  "calibracion": {
+    "calibrar": false
+  },
+  "reentrenamiento": {
+    "esquema": "trimestral"
+  },
+  "fuente": "arrastre, historia y reentrenamiento: corridas anteriores; variables, balanceo, tamano y ensamble: validacion 2025 de esta corrida (secciones 10 a 15)",
+  "variables_nuevas": {
+    "entran": true,
+    "dif_auc": 0.0018472053209103352,
+    "p": 0.00048828125
+  },
+  "balanceo": {
+    "elegido": "ninguno",
+    "candidatos": [
+      "ninguno",
+      "pesos_catboost",
+      "pesos",
+      "tomek"
+    ]
+  },
+  "tamano_entrenamiento": 300000,
+  "ficha_datos": {
+    "panel_filas_etiquetadas": 39080122,
+    "ventana_filas_promedio": 3370327,
+    "filas_comparaciones": 300000,
+    "filas_final": "todas",
+    "tope_ensambles": 1000000,
+    "tasa_cambio_2025": 0.13117533727769523,
+    "balanceo": "ninguno"
+  },
+  "algoritmo": {
+    "mejor_de_la_tabla": "votacion_suave",
+    "seleccionado_2026": "votacion_suave",
+    "estrategia_usada": "stacking_promedio",
+    "stacking_temporal": false,
+    "supera": {
+      "votacion_dura": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "votacion_suave": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "votacion_ponderada": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "promedio_de_rangos": {
+        "AUC": false,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "bagging_xgboost": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "easy_ensemble_lightgbm": {
+        "AUC": true,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "boosting_lightgbm": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "boosting_adaboost": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "boosting_lightgbm_temporal": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "boosting_adaboost_temporal": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_clasico": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_l1": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_l2": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_elasticnet": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_clasico_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_l1_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_l2_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_elasticnet_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_no_negativo": {
+        "AUC": false,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "stacking_no_negativo_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "stacking_random_forest": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "stacking_random_forest_temporal": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "blending": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "seleccion_caruana": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "seleccion_caruana_calibrada": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "seleccion_caruana_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "seleccion_caruana_calibrada_temporal": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "seleccion_dinamica": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "mezcla_de_expertos": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": false
+      },
+      "promedio_bayesiano": {
+        "AUC": false,
+        "precision@100": false,
+        "precision@250": false,
+        "Brier": true
+      },
+      "nuestro_1_multiventana": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "nuestro_2_pesos_convexos": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "nuestro_3_contraccion": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "nuestro_4_jerarquia": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "STJC_nuestro_metodo": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": true
+      },
+      "nuestro_6_mas_calibracion": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "votacion_suave_calibrado": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "votacion_ponderada_calibrado": {
+        "AUC": true,
+        "precision@100": true,
+        "precision@250": true,
+        "Brier": false
+      },
+      "votacion_dura_calibrado": {
+        "AUC": true,
+        "precision@100": false,
+        "precision@250": true,
+        "Brier": false
+      }
+    }
+  },
+  "significancia": {
+    "STJC_nuestro_metodo": 16,
+    "votacion_suave": 16
+  },
+  "diagnostico": {
+    "brecha_media": {
+      "STJC_nuestro_metodo": 0.0001369433447052648,
+      "bagging_xgboost": NaN,
+      "blending": 0.04954235241322413,
+      "boosting_adaboost": 0.04547921247151354,
+      "boosting_adaboost_temporal": 0.0024509353388127986,
+      "boosting_lightgbm": 0.04814780397013718,
+      "boosting_lightgbm_temporal": 0.023960585190612393,
+      "catboost": 0.038442888415283205,
+      "catboost_calibrado": NaN,
+      "easy_ensemble_lightgbm": NaN,
+      "lightgbm": 0.04011114005366212,
+      "lightgbm_calibrado": NaN,
+      "mezcla_de_expertos": 0.014968221442335006,
+      "nuestro_1_multiventana": -0.0021871444481474933,
+      "nuestro_2_pesos_convexos": -0.0029955514613713152,
+      "nuestro_3_contraccion": -0.0031171525820622437,
+      "nuestro_4_jerarquia": -0.0030722911921741147,
+      "nuestro_6_mas_calibracion": 0.00013694099842798124,
+      "promedio_bayesiano": -0.0020688272081373915,
+      "promedio_de_rangos": -0.0021139772243745636,
+      "random_forest": 0.08139234374050996,
+      "random_forest_calibrado": NaN,
+      "seleccion_caruana": 0.04378502326582978,
+      "seleccion_caruana_calibrada": 0.04412709317931496,
+      "seleccion_caruana_calibrada_temporal": -0.0006247573952952168,
+      "seleccion_caruana_temporal": -0.0018743062829846835,
+      "seleccion_dinamica": -7.973346499423606e-05,
+      "stacking_clasico": 0.04838165126494376,
+      "stacking_clasico_temporal": -0.00019570835044679935,
+      "stacking_elasticnet": 0.04818581555258272,
+      "stacking_elasticnet_temporal": -0.0005024986500287154,
+      "stacking_l1": 0.048215917426292165,
+      "stacking_l1_temporal": -0.00036249212190542224,
+      "stacking_l2": 0.04814759012734582,
+      "stacking_l2_temporal": -0.00045177207989854917,
+      "stacking_no_negativo": 0.04398968051791885,
+      "stacking_no_negativo_temporal": -0.002007905181086622,
+      "stacking_random_forest": 0.06915648188524959,
+      "stacking_random_forest_temporal": 0.03031127764450181,
+      "votacion_dura": -0.0038317205960979317,
+      "votacion_dura_calibrado": -0.0025134270671675063,
+      "votacion_ponderada": -0.003732875416930015,
+      "votacion_ponderada_calibrado": -0.0024379930001972028,
+      "votacion_suave": -0.0038169077158687337,
+      "votacion_suave_calibrado": -0.0025260188936315764,
+      "xgboost": 0.059064408752683595,
+      "xgboost_calibrado": NaN
+    },
+    "iteraciones_mejor_validacion": 200,
+    "prueba_negativa_auc_media": 0.4886274835842722,
+    "prueba_negativa_rango": [
+      0.4663918977750608,
+      0.5180992873771192
+    ]
+  },
+  "prueba": {
+    "auc_diario_modelo": 0.7459168836596001,
+    "auc_diario_regla_piloto": 0.7043627180222013,
+    "auc_diario_regla_referencia": 0.7251388693941212,
+    "p_wilcoxon": {
+      "regla: n_cambios_28": 4.887749403329208e-35,
+      "regla: n_cambios_90": 1.5491317312055678e-24
+    }
+  },
+  "sensibilidad_horizonte": [
+    {
+      "horizonte": 3,
+      "frente_a": "regla: n_cambios_28",
+      "ventaja_AUC_media": 0.0670742812342945,
+      "meses_que_gana_el_modelo": "9 de 9"
+    },
+    {
+      "horizonte": 3,
+      "frente_a": "regla: n_cambios_90",
+      "ventaja_AUC_media": 0.04601762861614066,
+      "meses_que_gana_el_modelo": "9 de 9"
+    },
+    {
+      "horizonte": 5,
+      "frente_a": "regla: n_cambios_28",
+      "ventaja_AUC_media": 0.04942481479161864,
+      "meses_que_gana_el_modelo": "9 de 9"
+    },
+    {
+      "horizonte": 5,
+      "frente_a": "regla: n_cambios_90",
+      "ventaja_AUC_media": 0.028833063944550492,
+      "meses_que_gana_el_modelo": "9 de 9"
+    },
+    {
+      "horizonte": 7,
+      "frente_a": "regla: n_cambios_28",
+      "ventaja_AUC_media": 0.04350380654017167,
+      "meses_que_gana_el_modelo": "9 de 9"
+    },
+    {
+      "horizonte": 7,
+      "frente_a": "regla: n_cambios_90",
+      "ventaja_AUC_media": 0.022169324753321524,
+      "meses_que_gana_el_modelo": "9 de 9"
+    }
+  ]
+}

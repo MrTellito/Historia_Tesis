@@ -1,0 +1,20 @@
+# Datasets pesados y datos crudos
+prueba7.1/datos/
+prueba7.1/cache/
+prueba7.1/catboost_info/
+
+# Archivos binarios y parquets de gran volumen (>100 MB)
+*.joblib
+*.parquet
+prueba7.1/salidas_v6/ensambles/
+
+# Entornos virtuales y temporales de Python / Jupyter
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+env/
+venv/
+*.tmp
