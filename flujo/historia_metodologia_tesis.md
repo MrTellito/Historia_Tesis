@@ -7,8 +7,8 @@
 
 ---
 
-![Figura 1. Diagrama del flujo metodológico integral](figura_metodologia_serpiente.jpg)
-*Figura 1. Diagrama del flujo metodológico integral de la investigación (Pipeline en S-Curve / Serpiente).*
+> **Figura 1:** *Diagrama de Arquitectura Metodológica y Flujo Integral disponible en formato vectorial e interactivo en [flujo_metodologico.drawio](file:///c:/Users/User/Desktop/tesis%20prueba/tesis_corrida_final_todosesambles/flujo/flujo_metodologico.drawio).*
+
 
 ## Prólogo: El Dilema en las Oficinas de Osinergmin (El Dolor del Negocio)
 

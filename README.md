@@ -7,8 +7,7 @@ Repositorio de investigación y sustentación metodológica del modelo predictiv
 ## 📁 Estructura del Repositorio
 
 - **`flujo/`**:
-  - `flujo_metodologico.drawio`: Diagrama metodológico oficial para la sección de Metodología del artículo/tesis (editable en Draw.io, incluye vistas tipo serpiente en español e inglés, y arquitectura detallada por fases).
-  - `figura_metodologia_serpiente.jpg`: Imagen de referencia del diseño tipo serpiente (S-Curve).
+  - `flujo_metodologico.drawio`: Diagrama metodológico oficial para la sección de Metodología del artículo/tesis (editable en Draw.io, incluye arquitectura MLOps con bases de datos, flujos de ingesta y bucle de retroalimentación).
   - `historia_metodologia_tesis.md`: Documento maestro de sustentación metodológica y narrativa científica completa.
   - `historia_metodologia_tesis.docx`: Versión ejecutiva en formato Word.
   - `resultados.md`: Compendio oficial de métricas comparativas (individuales y ensambles) con valores destacados.
