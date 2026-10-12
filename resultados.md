@@ -9,7 +9,7 @@
 
 ## 📌 Guía de Interpretación de Métricas
 
-Para una evaluación integral y rigurosa del rendimiento predictivo se reportan 7 métricas complementarias:
+Para la priorización diaria de supervisión y fiscalización se reportan 5 métricas complementarias centradas en ranking y calibración:
 
 1. **AUC (ROC-AUC)** ($\uparrow$ *mayor es mejor*):  
    Capacidad global del modelo para ordenar y discriminar entre establecimientos que cambiarán y no cambiarán de precio a través de todos los umbrales posibles (0.50 = azar puro, 1.00 = separación perfecta).
@@ -17,11 +17,7 @@ Para una evaluación integral y rigurosa del rendimiento predictivo se reportan 
    Porcentaje de establecimientos que **efectivamente modificaron su precio en los 5 días posteriores a la visita** entre los primeros $K$ casos con mayor probabilidad asignada cada medianoche. Es la métrica directa de eficiencia de las cuadrillas de fiscalización en campo.
 3. **Brier Score** ($\downarrow$ **<u>menor es mejor</u>**):  
    Error cuadrático medio de calibración probabilística: $\text{Brier} = \frac{1}{N} \sum_{i=1}^N (P_i - y_i)^2$. Un valor menor indica que las probabilidades asignadas por el modelo reflejan con mayor fidelidad la frecuencia real de los eventos en el mercado.
-4. **Accuracy (Exactitud con Umbral 0.50)** ($\uparrow$ *mayor es mejor*):  
-   Proporción global de clasificaciones correctas (positivas y negativas) con el umbral binario convencional de 0.50.
-5. **F1-Score (con Umbral 0.50)** ($\uparrow$ *mayor es mejor*):  
-   Media armónica entre precisión y recall bajo el umbral de corte de 0.50: $F_1 = 2 \cdot \frac{\text{Precisión} \cdot \text{Recall}}{\text{Precisión} + \text{Recall}}$.
-6. **Criterio Multicriterio ("Supera a Todos los Individuales")**:  
+4. **Criterio Multicriterio ("Supera a Todos los Individuales")**:  
    Exigencia metodológica para que un ensamble sea considerado viable: requiere superar simultáneamente al mejor modelo individual en las 4 métricas cardinales (**AUC, $p@100$, $p@250$ y Brier Score**).
 
 ---
@@ -34,18 +30,18 @@ En esta sección se reportan los resultados de los cuatro modelos de aprendizaje
 
 Promedios consolidados a lo largo de los 12 bloques mensuales de validación temporal (2025):
 
-| Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | Accuracy (0.5) | F1-Score (0.5) |
-| :---| :---:| :---:| :---:| :---:| :---:| :---:| :---: |
-| CatBoost | 0.7328 | 69.04% | <u>**61.87%**</u> | <u>**52.55%**</u> | 0.1039 | 86.88% | 0.1184 |
-| LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | <u>**0.1037**</u> | 86.94% | 0.1035 |
-| XGBoost | <u>**0.7333**</u> | <u>**69.08%**</u> | 61.70% | 52.45% | 0.1040 | 86.89% | <u>**0.1241**</u> |
-| Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> | <u>**87.01%**</u> | 0.0897 |
+| Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score |
+| :---| :---:| :---:| :---:| :---:| :---: |
+| CatBoost | 0.7328 | 69.04% | <u>**61.87%**</u> | <u>**52.55%**</u> | 0.1039 |
+| LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | <u>**0.1037**</u> |
+| XGBoost | <u>**0.7333**</u> | <u>**69.08%**</u> | 61.70% | 52.45% | 0.1040 |
+| Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> |
 
 #### 💡 Análisis Detallado de los Modelos Base:
-* **XGBoost:** Obtiene el **mayor AUC individual (<u>0.7333</u>)**, la **mayor Precisión@50 (<u>69.08%</u>)** y el **mejor F1-Score (<u>0.1241</u>)**. Demuestra la mejor capacidad global de discriminación y ordenamiento en el extremo superior de la lista.
+* **XGBoost:** Obtiene el **mayor AUC individual (<u>0.7333</u>)** y la **mayor Precisión@50 (<u>69.08%</u>)**. Demuestra la mejor capacidad global de discriminación y ordenamiento en el extremo superior de la lista diaria.
 * **CatBoost:** Es el algoritmo líder en la zona operativa de fiscalización estándar: logra la **mayor Precisión@100 (<u>61.87%</u>)** y la **mayor Precisión@250 (<u>52.55%</u>)** entre los modelos base.
 * **LightGBM:** Alcanza el **mejor Brier Score individual (<u>0.1037</u>)**, reflejando una excelente calibración probabilística natural, junto con el menor costo computacional (0.9 segundos por bloque de entrenamiento).
-* **Random Forest:** Maximiza la exactitud global nominal (**<u>87.01%</u>**), pero exhibe la menor precisión en el Top 100 (61.00%) y la mayor brecha de sobreajuste entre entrenamiento y validación ($+0.0814$).
+* **Random Forest:** Empata en el **mejor Brier Score (<u>0.1037</u>)**, pero exhibe la menor precisión en el Top 100 (61.00%) y la mayor brecha de sobreajuste entre entrenamiento y validación ($+0.0814$).
 
 ---
 
@@ -53,21 +49,21 @@ Promedios consolidados a lo largo de los 12 bloques mensuales de validación tem
 
 Comparativa de los 4 modelos entrenados con su probabilidad bruta frente a su versión calibrada analíticamente:
 
-| Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | Accuracy (0.5) | F1-Score (0.5) |
-| :---| :---:| :---:| :---:| :---:| :---:| :---:| :---: |
-| CatBoost | 0.7328 | 69.04% | 61.87% | 52.55% | 0.1039 | 86.88% | 0.1184 |
-| CatBoost (Calibrado) | 0.7328 | 69.04% | <u>**61.88%**</u> | <u>**52.56%**</u> | 0.1076 | 86.42% | 0.1153 |
-| LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | <u>**0.1037**</u> | 86.94% | 0.1035 |
-| LightGBM (Calibrado) | 0.7326 | 68.79% | 61.50% | 52.26% | 0.1070 | 86.57% | <u>**0.1281**</u> |
-| XGBoost | <u>**0.7333**</u> | <u>**69.08%**</u> | 61.70% | 52.45% | 0.1040 | 86.89% | 0.1241 |
-| XGBoost (Calibrado) | <u>**0.7333**</u> | 69.05% | 61.73% | 52.42% | 0.1076 | 86.50% | 0.1094 |
-| Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> | <u>**87.01%**</u> | 0.0897 |
-| Random Forest (Calibrado) | 0.7282 | 68.52% | 61.00% | 52.11% | 0.1059 | 86.74% | 0.1042 |
+| Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score |
+| :---| :---:| :---:| :---:| :---:| :---: |
+| CatBoost | 0.7328 | 69.04% | 61.87% | 52.55% | 0.1039 |
+| CatBoost (Calibrado) | 0.7328 | 69.04% | <u>**61.88%**</u> | <u>**52.56%**</u> | 0.1076 |
+| LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | <u>**0.1037**</u> |
+| LightGBM (Calibrado) | 0.7326 | 68.79% | 61.50% | 52.26% | 0.1070 |
+| XGBoost | <u>**0.7333**</u> | <u>**69.08%**</u> | 61.70% | 52.45% | 0.1040 |
+| XGBoost (Calibrado) | <u>**0.7333**</u> | 69.05% | 61.73% | 52.42% | 0.1076 |
+| Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> |
+| Random Forest (Calibrado) | 0.7282 | 68.52% | 61.00% | 52.11% | 0.1059 |
 
 #### 💡 Impacto de la Calibración de Dal Pozzolo:
 * La transformación en escala logit es monótona: preserva exactamente el ranking y el AUC de cada modelo.
 * **CatBoost Calibrado** alcanza el pico de precisión individual del estudio en el **Top 100 (<u>61.88%</u>)** y **Top 250 (<u>52.56%</u>)**.
-* **LightGBM Calibrado** alcanza el mayor $F_1$ individual del conjunto (**<u>0.1281</u>**).
+* Permite corregir el sesgo en el nivel medio de probabilidad producido por el balanceo artificial del conjunto de entrenamiento sin deteriorar el ordenamiento relativo.
 
 ---
 
@@ -93,55 +89,55 @@ En esta sección se integran los **8 modelos individuales** junto a las **39 con
 
 *Los valores destacados con <u>**negrita y subrayado**</u> identifican el récord absoluto de toda la investigación para dicha métrica.*
 
-| Familia Metodológica | Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | Accuracy (0.5) | F1-Score (0.5) | ¿Supera a Todos? (4 de 4) |
-| :---| :---| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---: |
-| **Modelos Individuales** | CatBoost | 0.7328 | 69.04% | 61.87% | 52.55% | 0.1039 | 86.88% | 0.1184 | — |
-| **Modelos Individuales** | CatBoost (Calibrado) | 0.7328 | 69.04% | 61.88% | 52.56% | 0.1076 | 86.42% | 0.1153 | — |
-| **Modelos Individuales** | LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | 0.1037 | 86.94% | 0.1035 | — |
-| **Modelos Individuales** | LightGBM (Calibrado) | 0.7326 | 68.79% | 61.50% | 52.26% | 0.1070 | 86.57% | 0.1281 | — |
-| **Modelos Individuales** | XGBoost | 0.7333 | 69.08% | 61.70% | 52.45% | 0.1040 | 86.89% | 0.1241 | — |
-| **Modelos Individuales** | XGBoost (Calibrado) | 0.7333 | 69.05% | 61.73% | 52.42% | 0.1076 | 86.50% | 0.1094 | — |
-| **Modelos Individuales** | Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | 0.1037 | 87.01% | 0.0897 | — |
-| **Modelos Individuales** | Random Forest (Calibrado) | 0.7282 | 68.52% | 61.00% | 52.11% | 0.1059 | 86.74% | 0.1042 | — |
-| **Votación Directa** | Votación Dura (Mayoría) | 0.7354 | 69.84% | 62.50% | 53.02% | 0.1722 | 81.72% | 0.3177 | 3 de 4 |
-| **Votación Directa** | Votación Suave (Promedio Simple) | <u>**0.7355**</u> | 69.84% | 62.50% | 53.01% | 0.1034 | 86.96% | 0.1060 | **4 de 4** (Élite) |
-| **Votación Directa** | Votación Ponderada (Pesos por AUC) | <u>**0.7355**</u> | 69.85% | 62.49% | 53.00% | 0.1034 | 86.96% | 0.1060 | **4 de 4** (Élite) |
-| **Votación Directa** | Promedio de Rangos (Rank Averaging) | 0.7309 | 69.79% | 62.24% | 52.90% | 0.1048 | 86.91% | 0.0991 | 2 de 4 |
-| **Bagging / Submuestreo** | Bagging de XGBoost | 0.7346 | 69.33% | 62.37% | 52.85% | 0.1038 | 86.91% | 0.1212 | 3 de 4 |
-| **Bagging / Submuestreo** | EasyEnsemble (LightGBM) | 0.7333 | 68.71% | 61.43% | 52.18% | 0.1984 | 70.37% | <u>**0.3518**</u> | 1 de 4 |
-| **Boosting como Metamodelo** | Boosting Metamodelo (LightGBM) | 0.7322 | 68.20% | 60.90% | 51.62% | 0.1041 | 86.83% | 0.1467 | 0 de 4 |
-| **Boosting como Metamodelo** | AdaBoost Metamodelo | 0.7273 | 67.98% | 61.00% | 52.05% | 0.1220 | 86.92% | 0.1274 | 0 de 4 |
-| **Boosting como Metamodelo** | Boosting LightGBM (Temporal) | 0.7255 | 63.43% | 59.11% | 50.71% | 0.1082 | 86.39% | 0.1216 | 0 de 4 |
-| **Boosting como Metamodelo** | AdaBoost Metamodelo (Temporal) | 0.7291 | 64.14% | 59.04% | 51.43% | 0.1234 | 86.51% | 0.0676 | 0 de 4 |
-| **Stacking Lineal** | Stacking Lineal Clásico (Logit) | 0.7298 | 68.71% | 60.95% | 51.92% | 0.1042 | 86.85% | 0.1437 | 0 de 4 |
-| **Stacking Lineal** | Stacking con Regularización L1 (Lasso) | 0.7300 | 68.79% | 61.05% | 51.93% | 0.1042 | 86.85% | 0.1436 | 0 de 4 |
-| **Stacking Lineal** | Stacking con Regularización L2 (Ridge) | 0.7301 | 68.84% | 61.00% | 51.95% | 0.1042 | 86.85% | 0.1433 | 0 de 4 |
-| **Stacking Lineal** | Stacking ElasticNet (L1 + L2) | 0.7300 | 68.77% | 61.03% | 51.93% | 0.1042 | 86.85% | 0.1435 | 0 de 4 |
-| **Stacking Lineal** | Stacking Clásico Temporal (1 mes) | 0.7338 | 69.81% | 61.98% | 52.47% | 0.1072 | 86.49% | 0.1310 | 2 de 4 |
-| **Stacking Lineal** | Stacking L1 Temporal | 0.7340 | 69.86% | 62.06% | 52.49% | 0.1069 | 86.54% | 0.1282 | 2 de 4 |
-| **Stacking Lineal** | Stacking L2 Temporal | 0.7340 | 69.75% | 62.09% | 52.56% | 0.1075 | 86.50% | 0.1121 | 2 de 4 |
-| **Stacking Lineal** | Stacking ElasticNet Temporal | 0.7341 | 69.74% | 62.12% | 52.53% | 0.1071 | 86.53% | 0.1176 | 2 de 4 |
-| **Stacking Restringido** | Stacking No Negativo (Pesos >= 0) | 0.7330 | 69.53% | 61.93% | 52.58% | 0.1038 | 86.88% | 0.1471 | 2 de 4 |
-| **Stacking Restringido** | Stacking No Negativo Temporal | 0.7348 | 70.07% | 62.27% | 52.82% | 0.1069 | 86.50% | 0.1310 | 3 de 4 |
-| **Stacking No Lineal** | Stacking No Lineal con Random Forest | 0.7292 | 68.30% | 60.74% | 51.53% | 0.1045 | 86.78% | 0.1517 | 0 de 4 |
-| **Stacking No Lineal** | Stacking Random Forest Temporal | 0.7296 | 64.47% | 59.59% | 51.91% | 0.1073 | 86.51% | 0.1261 | 0 de 4 |
-| **Blending** | Blending (Holdout 20%) | 0.7300 | 68.70% | 60.95% | 51.95% | 0.1043 | 86.83% | 0.1471 | 0 de 4 |
-| **Selección Greedy (Caruana)** | Selección de Ensambles (Caruana) | 0.7333 | 69.63% | 62.03% | 52.60% | 0.1034 | 87.00% | 0.0989 | **4 de 4** (Élite) |
-| **Selección Greedy (Caruana)** | Selección Caruana (Calibrada) | 0.7333 | 69.66% | 62.04% | 52.60% | 0.1039 | 86.83% | 0.1577 | 3 de 4 |
-| **Selección Greedy (Caruana)** | Selección Caruana Temporal | 0.7348 | 69.97% | 62.23% | 52.78% | 0.1035 | 86.97% | 0.1069 | **4 de 4** (Élite) |
-| **Selección Greedy (Caruana)** | Selección Caruana Calibrada Temporal | 0.7348 | 69.95% | 62.24% | 52.78% | 0.1070 | 86.56% | 0.1287 | 3 de 4 |
-| **Selección Dinámica** | Selección Dinámica por Grifo | 0.7323 | 68.47% | 61.16% | 52.17% | 0.1075 | 86.48% | 0.1168 | 0 de 4 |
-| **Selección Dinámica** | Mezcla de Expertos (MoE) | 0.7252 | 67.26% | 59.60% | 50.18% | 0.1091 | 86.22% | 0.1330 | 0 de 4 |
-| **Inferencia Bayesiana** | Promedio Bayesiano de Modelos (BMA) | 0.7319 | 69.23% | 61.50% | 52.31% | 0.1036 | <u>**87.02%**</u> | 0.1070 | 1 de 4 |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 1 (+ Multiventana 3m) | 0.7343 | 69.71% | 61.93% | 52.63% | 0.1039 | 87.00% | 0.0660 | 3 de 4 |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 2 (+ Pesos Convexos) | 0.7347 | 69.88% | 62.03% | 52.81% | 0.1033 | 87.00% | 0.0989 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 3 (+ Contracción/Shrinkage) | 0.7352 | 70.03% | 62.46% | 53.01% | 0.1032 | 87.00% | 0.1026 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 4 (+ Jerarquía Combustible) | 0.7352 | 70.03% | 62.45% | 53.00% | 0.1032 | 87.00% | 0.1024 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Método Completo (+ Bagging Temporal) | 0.7348 | <u>**70.23%**</u> | <u>**62.51%**</u> | 53.08% | <u>**0.1031**</u> | 87.02% | 0.0992 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC + Calibración Posterior | 0.7348 | <u>**70.23%**</u> | 62.50% | <u>**53.08%**</u> | 0.1040 | 87.01% | 0.0971 | 3 de 4 |
-| **Votación con Calibración** | Votación Suave (Calibrada) | <u>**0.7355**</u> | 69.84% | 62.46% | 53.00% | 0.1067 | 86.49% | 0.1226 | 3 de 4 |
-| **Votación con Calibración** | Votación Ponderada (Calibrada) | <u>**0.7355**</u> | 69.84% | 62.45% | 53.00% | 0.1067 | 86.51% | 0.1222 | 3 de 4 |
-| **Votación con Calibración** | Votación Dura (Calibrada) | 0.7354 | 69.02% | 61.86% | 52.83% | 0.1067 | 86.49% | 0.1226 | 2 de 4 |
+| Familia Metodológica | Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | ¿Supera a Todos? (4 de 4) |
+| :---| :---| :---:| :---:| :---:| :---:| :---:| :---: |
+| **Modelos Individuales** | CatBoost | 0.7328 | 69.04% | 61.87% | 52.55% | 0.1039 | — |
+| **Modelos Individuales** | CatBoost (Calibrado) | 0.7328 | 69.04% | 61.88% | 52.56% | 0.1076 | — |
+| **Modelos Individuales** | LightGBM | 0.7326 | 68.87% | 61.54% | 52.26% | 0.1037 | — |
+| **Modelos Individuales** | LightGBM (Calibrado) | 0.7326 | 68.79% | 61.50% | 52.26% | 0.1070 | — |
+| **Modelos Individuales** | XGBoost | 0.7333 | 69.08% | 61.70% | 52.45% | 0.1040 | — |
+| **Modelos Individuales** | XGBoost (Calibrado) | 0.7333 | 69.05% | 61.73% | 52.42% | 0.1076 | — |
+| **Modelos Individuales** | Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | 0.1037 | — |
+| **Modelos Individuales** | Random Forest (Calibrado) | 0.7282 | 68.52% | 61.00% | 52.11% | 0.1059 | — |
+| **Votación Directa** | Votación Dura (Mayoría) | 0.7354 | 69.84% | 62.50% | 53.02% | 0.1722 | 3 de 4 |
+| **Votación Directa** | Votación Suave (Promedio Simple) | <u>**0.7355**</u> | 69.84% | 62.50% | 53.01% | 0.1034 | **4 de 4** (Élite) |
+| **Votación Directa** | Votación Ponderada (Pesos por AUC) | <u>**0.7355**</u> | 69.85% | 62.49% | 53.00% | 0.1034 | **4 de 4** (Élite) |
+| **Votación Directa** | Promedio de Rangos (Rank Averaging) | 0.7309 | 69.79% | 62.24% | 52.90% | 0.1048 | 2 de 4 |
+| **Bagging / Submuestreo** | Bagging de XGBoost | 0.7346 | 69.33% | 62.37% | 52.85% | 0.1038 | 3 de 4 |
+| **Bagging / Submuestreo** | EasyEnsemble (LightGBM) | 0.7333 | 68.71% | 61.43% | 52.18% | 0.1984 | 1 de 4 |
+| **Boosting como Metamodelo** | Boosting Metamodelo (LightGBM) | 0.7322 | 68.20% | 60.90% | 51.62% | 0.1041 | 0 de 4 |
+| **Boosting como Metamodelo** | AdaBoost Metamodelo | 0.7273 | 67.98% | 61.00% | 52.05% | 0.1220 | 0 de 4 |
+| **Boosting como Metamodelo** | Boosting LightGBM (Temporal) | 0.7255 | 63.43% | 59.11% | 50.71% | 0.1082 | 0 de 4 |
+| **Boosting como Metamodelo** | AdaBoost Metamodelo (Temporal) | 0.7291 | 64.14% | 59.04% | 51.43% | 0.1234 | 0 de 4 |
+| **Stacking Lineal** | Stacking Lineal Clásico (Logit) | 0.7298 | 68.71% | 60.95% | 51.92% | 0.1042 | 0 de 4 |
+| **Stacking Lineal** | Stacking con Regularización L1 (Lasso) | 0.7300 | 68.79% | 61.05% | 51.93% | 0.1042 | 0 de 4 |
+| **Stacking Lineal** | Stacking con Regularización L2 (Ridge) | 0.7301 | 68.84% | 61.00% | 51.95% | 0.1042 | 0 de 4 |
+| **Stacking Lineal** | Stacking ElasticNet (L1 + L2) | 0.7300 | 68.77% | 61.03% | 51.93% | 0.1042 | 0 de 4 |
+| **Stacking Lineal** | Stacking Clásico Temporal (1 mes) | 0.7338 | 69.81% | 61.98% | 52.47% | 0.1072 | 2 de 4 |
+| **Stacking Lineal** | Stacking L1 Temporal | 0.7340 | 69.86% | 62.06% | 52.49% | 0.1069 | 2 de 4 |
+| **Stacking Lineal** | Stacking L2 Temporal | 0.7340 | 69.75% | 62.09% | 52.56% | 0.1075 | 2 de 4 |
+| **Stacking Lineal** | Stacking ElasticNet Temporal | 0.7341 | 69.74% | 62.12% | 52.53% | 0.1071 | 2 de 4 |
+| **Stacking Restringido** | Stacking No Negativo (Pesos >= 0) | 0.7330 | 69.53% | 61.93% | 52.58% | 0.1038 | 2 de 4 |
+| **Stacking Restringido** | Stacking No Negativo Temporal | 0.7348 | 70.07% | 62.27% | 52.82% | 0.1069 | 3 de 4 |
+| **Stacking No Lineal** | Stacking No Lineal con Random Forest | 0.7292 | 68.30% | 60.74% | 51.53% | 0.1045 | 0 de 4 |
+| **Stacking No Lineal** | Stacking Random Forest Temporal | 0.7296 | 64.47% | 59.59% | 51.91% | 0.1073 | 0 de 4 |
+| **Blending** | Blending (Holdout 20%) | 0.7300 | 68.70% | 60.95% | 51.95% | 0.1043 | 0 de 4 |
+| **Selección Greedy (Caruana)** | Selección de Ensambles (Caruana) | 0.7333 | 69.63% | 62.03% | 52.60% | 0.1034 | **4 de 4** (Élite) |
+| **Selección Greedy (Caruana)** | Selección Caruana (Calibrada) | 0.7333 | 69.66% | 62.04% | 52.60% | 0.1039 | 3 de 4 |
+| **Selección Greedy (Caruana)** | Selección Caruana Temporal | 0.7348 | 69.97% | 62.23% | 52.78% | 0.1035 | **4 de 4** (Élite) |
+| **Selección Greedy (Caruana)** | Selección Caruana Calibrada Temporal | 0.7348 | 69.95% | 62.24% | 52.78% | 0.1070 | 3 de 4 |
+| **Selección Dinámica** | Selección Dinámica por Grifo | 0.7323 | 68.47% | 61.16% | 52.17% | 0.1075 | 0 de 4 |
+| **Selección Dinámica** | Mezcla de Expertos (MoE) | 0.7252 | 67.26% | 59.60% | 50.18% | 0.1091 | 0 de 4 |
+| **Inferencia Bayesiana** | Promedio Bayesiano de Modelos (BMA) | 0.7319 | 69.23% | 61.50% | 52.31% | 0.1036 | 1 de 4 |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 1 (+ Multiventana 3m) | 0.7343 | 69.71% | 61.93% | 52.63% | 0.1039 | 3 de 4 |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 2 (+ Pesos Convexos) | 0.7347 | 69.88% | 62.03% | 52.81% | 0.1033 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 3 (+ Contracción/Shrinkage) | 0.7352 | 70.03% | 62.46% | 53.01% | 0.1032 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 4 (+ Jerarquía Combustible) | 0.7352 | 70.03% | 62.45% | 53.00% | 0.1032 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Método Completo (+ Bagging Temporal) | 0.7348 | <u>**70.23%**</u> | <u>**62.51%**</u> | 53.08% | <u>**0.1031**</u> | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC + Calibración Posterior | 0.7348 | <u>**70.23%**</u> | 62.50% | <u>**53.08%**</u> | 0.1040 | 3 de 4 |
+| **Votación con Calibración** | Votación Suave (Calibrada) | <u>**0.7355**</u> | 69.84% | 62.46% | 53.00% | 0.1067 | 3 de 4 |
+| **Votación con Calibración** | Votación Ponderada (Calibrada) | <u>**0.7355**</u> | 69.84% | 62.45% | 53.00% | 0.1067 | 3 de 4 |
+| **Votación con Calibración** | Votación Dura (Calibrada) | 0.7354 | 69.02% | 61.86% | 52.83% | 0.1067 | 2 de 4 |
 
 ---
 
@@ -149,16 +145,16 @@ En esta sección se integran los **8 modelos individuales** junto a las **39 con
 
 De las 39 configuraciones de ensambles, solo **8 lograron superar simultáneamente al mejor modelo individual en las 4 métricas cardinales (AUC > 0.7333, $p@100$ > 61.87%, $p@250$ > 52.55% y Brier < 0.1037)**:
 
-| Familia Metodológica | Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | Accuracy (0.5) | F1-Score (0.5) | ¿Supera a Todos? (4 de 4) |
-| :---| :---| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---: |
-| **Votación Directa** | Votación Suave (Promedio Simple) | <u>**0.7355**</u> | 69.84% | 62.50% | 53.01% | 0.1034 | 86.96% | 0.1060 | **4 de 4** (Élite) |
-| **Votación Directa** | Votación Ponderada (Pesos por AUC) | <u>**0.7355**</u> | 69.85% | 62.49% | 53.00% | 0.1034 | 86.96% | 0.1060 | **4 de 4** (Élite) |
-| **Selección Greedy (Caruana)** | Selección de Ensambles (Caruana) | 0.7333 | 69.63% | 62.03% | 52.60% | 0.1034 | 87.00% | 0.0989 | **4 de 4** (Élite) |
-| **Selección Greedy (Caruana)** | Selección Caruana Temporal | 0.7348 | 69.97% | 62.23% | 52.78% | 0.1035 | 86.97% | 0.1069 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 2 (+ Pesos Convexos) | 0.7347 | 69.88% | 62.03% | 52.81% | 0.1033 | 87.00% | 0.0989 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 3 (+ Contracción/Shrinkage) | 0.7352 | 70.03% | 62.46% | 53.01% | 0.1032 | 87.00% | 0.1026 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Pieza 4 (+ Jerarquía Combustible) | 0.7352 | 70.03% | 62.45% | 53.00% | 0.1032 | 87.00% | 0.1024 | **4 de 4** (Élite) |
-| **STJC (Aporte de Tesis)** | STJC: Método Completo (+ Bagging Temporal) | 0.7348 | <u>**70.23%**</u> | <u>**62.51%**</u> | 53.08% | <u>**0.1031**</u> | 87.02% | 0.0992 | **4 de 4** (Élite) |
+| Familia Metodológica | Modelo / Estrategia | AUC | Precisión@50 | Precisión@100 | Precisión@250 | Brier Score | ¿Supera a Todos? (4 de 4) |
+| :---| :---| :---:| :---:| :---:| :---:| :---:| :---: |
+| **Votación Directa** | Votación Suave (Promedio Simple) | <u>**0.7355**</u> | 69.84% | 62.50% | 53.01% | 0.1034 | **4 de 4** (Élite) |
+| **Votación Directa** | Votación Ponderada (Pesos por AUC) | <u>**0.7355**</u> | 69.85% | 62.49% | 53.00% | 0.1034 | **4 de 4** (Élite) |
+| **Selección Greedy (Caruana)** | Selección de Ensambles (Caruana) | 0.7333 | 69.63% | 62.03% | 52.60% | 0.1034 | **4 de 4** (Élite) |
+| **Selección Greedy (Caruana)** | Selección Caruana Temporal | 0.7348 | 69.97% | 62.23% | 52.78% | 0.1035 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 2 (+ Pesos Convexos) | 0.7347 | 69.88% | 62.03% | 52.81% | 0.1033 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 3 (+ Contracción/Shrinkage) | 0.7352 | 70.03% | 62.46% | 53.01% | 0.1032 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Pieza 4 (+ Jerarquía Combustible) | 0.7352 | 70.03% | 62.45% | 53.00% | 0.1032 | **4 de 4** (Élite) |
+| **STJC (Aporte de Tesis)** | STJC: Método Completo (+ Bagging Temporal) | 0.7348 | <u>**70.23%**</u> | <u>**62.51%**</u> | 53.08% | <u>**0.1031**</u> | **4 de 4** (Élite) |
 
 #### 🌟 Los Dos Grandes Campeones de la Tesis:
 1. **Votación Suave (*Soft Voting* / Stacking Promedio):**
@@ -170,6 +166,7 @@ De las 39 configuraciones de ensambles, solo **8 lograron superar simultáneamen
 2. **STJC: Stacking Temporal Jerárquico con Contracción (Nuestra Propuesta Metodológica):**
    * **Récord Absoluto en el Top 100:** <u>**62.51%**</u> de precisión ($p@100$).
    * **Récord Absoluto en el Top 50:** <u>**70.23%**</u> de precisión ($p@50$).
+   * **Récord Absoluto en el Top 250:** <u>**53.08%**</u> de precisión ($p@250$).
    * **Mejor Calibración Probabilística:** Brier Score de <u>**0.1031**</u>.
    * Es el aporte de diseño de la tesis que resuelve la multicolinealidad extrema de las probabilidades en series de tiempo mediante restricciones convexas y contracción hacia pesos iguales.
 
