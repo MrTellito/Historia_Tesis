@@ -9,6 +9,9 @@ Repositorio de investigación y sustentación metodológica del modelo predictiv
 - **`flujo/`**:
   - `historia_metodologia_tesis.md`: Documento maestro de sustentación metodológica y narrativa científica completa.
   - `historia_metodologia_tesis.docx`: Versión ejecutiva en formato Word.
+  - `resultados.md`: Compendio oficial de métricas comparativas (individuales y ensambles) con valores destacados.
+  - `resultados.docx`: Versión de resultados en formato Word.
+- **`resultados.md`**: Acceso directo en raíz al compendio oficial de métricas de modelos individuales y ensambles.
 - **`prueba7.1/`**:
   - `tesis_priorizacion_scop_v6.ipynb`: Cuaderno Jupyter con la implementación completa de la metodología (pipeline de datos, ingeniería de variables, modelos base, ensambles temporales y validación).
   - `muestras_evolucion_datos/`: Muestras ilustrativas de las 5 etapas de evolución de los datos.
