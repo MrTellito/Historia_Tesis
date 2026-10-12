@@ -7,6 +7,9 @@
 
 ---
 
+![Figura 1. Diagrama del flujo metodológico integral](figura_metodologia_serpiente.jpg)
+*Figura 1. Diagrama del flujo metodológico integral de la investigación (Pipeline en S-Curve / Serpiente).*
+
 ## Prólogo: El Dilema en las Oficinas de Osinergmin (El Dolor del Negocio)
 
 Imagina que eres el Director de Supervisión de Hidrocarburos en el organismo regulador del Perú (**Osinergmin**). 
