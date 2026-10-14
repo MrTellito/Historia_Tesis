@@ -77,3 +77,4 @@ La evidencia reproducible completa se encuentra registrada en los siguientes com
 Si a pesar de la evidencia matemática y empírica el asesor insistiera en forzar la aplicación de un método de balanceo en el documento final:
 * **La opción técnica menos dañina:** Sería el **submuestreo moderado 1 a 3** (`submuestreo_1_3`), el cual retuvo un $p@100$ de **$61.51\%$** en LightGBM prácticamente idéntico a no balancear ($61.54\%$), evitando inventar datos sintéticos irreales.
 * **Recomendación científica:** Registrarlo como un requerimiento normativo del revisor, haciendo constar en la discusión que la evidencia empírica directa de los 12 meses demuestra que no balancear maximiza la fidelidad probabilística con el menor costo computacional. En ningún caso se recomienda adoptar SMOTE.
+

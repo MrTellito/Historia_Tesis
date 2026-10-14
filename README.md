@@ -15,6 +15,7 @@ Repositorio de investigación y sustentación metodológica del modelo predictiv
   - `diccionario_de_variables.md`: Definición formal de la variable objetivo y especificación de las 29 variables predictivas.
   - `diccionario_de_variables.docx`: Versión del diccionario de variables en formato Word.
   - `porque_no_balanceamos_la_data.md`: Sustentación metodológica y evidencia empírica de por qué no se aplica balanceo sintético (SMOTE).
+  - `explicacion_purga_y_aprendizaje.md`: Explicación detallada de la purga temporal de 6 días y cómo aprenden los modelos y ensambles.
 - **`flujo_metodologico.drawio`**: Acceso directo en raíz al diagrama metodológico de Draw.io.
 - **`resultados.md`**: Acceso directo en raíz al compendio oficial de métricas de modelos individuales y ensambles.
 - **`prueba7.1/`**:
