@@ -7,7 +7,7 @@
 
 ---
 
-## 📌 Guía de Interpretación de Métricas
+## Guía de Interpretación de Métricas
 
 Para la priorización diaria de supervisión y fiscalización se reportan 5 métricas complementarias centradas en ranking y calibración:
 
@@ -22,7 +22,7 @@ Para la priorización diaria de supervisión y fiscalización se reportan 5 mét
 
 ---
 
-## 🔬 Sección 1: Resultados de los Modelos Individuales
+## Sección 1: Resultados de los Modelos Individuales
 
 En esta sección se reportan los resultados de los cuatro modelos de aprendizaje automático base entrenados de forma individual sobre el vector completo de 29 variables predictivas.
 
@@ -37,7 +37,7 @@ Promedios consolidados a lo largo de los 12 bloques mensuales de validación tem
 | XGBoost | <u>**0.7333**</u> | <u>**69.08%**</u> | 61.70% | 52.45% | 0.1040 |
 | Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> |
 
-#### 💡 Análisis Detallado de los Modelos Base:
+#### Análisis Detallado de los Modelos Base:
 * **XGBoost:** Obtiene el **mayor AUC individual (<u>0.7333</u>)** y la **mayor Precisión@50 (<u>69.08%</u>)**. Demuestra la mejor capacidad global de discriminación y ordenamiento en el extremo superior de la lista diaria.
 * **CatBoost:** Es el algoritmo líder en la zona operativa de fiscalización estándar: logra la **mayor Precisión@100 (<u>61.87%</u>)** y la **mayor Precisión@250 (<u>52.55%</u>)** entre los modelos base.
 * **LightGBM:** Alcanza el **mejor Brier Score individual (<u>0.1037</u>)**, reflejando una excelente calibración probabilística natural, junto con el menor costo computacional (0.9 segundos por bloque de entrenamiento).
@@ -60,7 +60,7 @@ Comparativa de los 4 modelos entrenados con su probabilidad bruta frente a su ve
 | Random Forest | 0.7282 | 68.53% | 61.00% | 52.12% | <u>**0.1037**</u> |
 | Random Forest (Calibrado) | 0.7282 | 68.52% | 61.00% | 52.11% | 0.1059 |
 
-#### 💡 Impacto de la Calibración de Dal Pozzolo:
+#### Impacto de la Calibración de Dal Pozzolo:
 * La transformación en escala logit es monótona: preserva exactamente el ranking y el AUC de cada modelo.
 * **CatBoost Calibrado** alcanza el pico de precisión individual del estudio en el **Top 100 (<u>61.88%</u>)** y **Top 250 (<u>52.56%</u>)**.
 * Permite corregir el sesgo en el nivel medio de probabilidad producido por el balanceo artificial del conjunto de entrenamiento sin deteriorar el ordenamiento relativo.
@@ -81,7 +81,7 @@ Rendimiento desagregado por cada una de las 5 familias de combustibles sobre dat
 
 ---
 
-## 🏆 Sección 2: Modelos Individuales + Métricas de los Ensambles (Tabla Maestra)
+## Sección 2: Modelos Individuales + Métricas de los Ensambles (Tabla Maestra)
 
 En esta sección se integran los **8 modelos individuales** junto a las **39 configuraciones de ensambles** evaluadas bajo el mismo protocolo experimental de validación temporal en 12 bloques (2025).
 
@@ -156,7 +156,7 @@ De las 39 configuraciones de ensambles, solo **8 lograron superar simultáneamen
 | **STJC (Aporte de Tesis)** | STJC: Pieza 4 (+ Jerarquía Combustible) | 0.7352 | 70.03% | 62.45% | 53.00% | 0.1032 | **4 de 4** (Élite) |
 | **STJC (Aporte de Tesis)** | STJC: Método Completo (+ Bagging Temporal) | 0.7348 | <u>**70.23%**</u> | <u>**62.51%**</u> | 53.08% | <u>**0.1031**</u> | **4 de 4** (Élite) |
 
-#### 🌟 Los Dos Grandes Campeones de la Tesis:
+#### Los Dos Grandes Campeones de la Tesis:
 1. **Votación Suave (*Soft Voting* / Stacking Promedio):**
    * **Récord Absoluto de AUC:** <u>**0.7355**</u>.
    * Promedia de forma parsimoniosa las probabilidades de los 4 modelos base:
@@ -187,7 +187,7 @@ Esta tabla demuestra el aporte incremental de cada módulo arquitectónico de ST
 
 ---
 
-## 📈 Sección 3: Auditoría Estadística y Validación Operativa en el Mundo Real (2026)
+## Sección 3: Auditoría Estadística y Validación Operativa en el Mundo Real (2026)
 
 ### 3.1 365 Pruebas Diarias de Wilcoxon Pareado con Corrección Holm-Bonferroni (2025)
 

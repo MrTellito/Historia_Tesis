@@ -12,6 +12,8 @@ Repositorio de investigación y sustentación metodológica del modelo predictiv
   - `historia_metodologia_tesis.docx`: Versión ejecutiva en formato Word.
   - `resultados.md`: Compendio oficial de métricas comparativas (individuales y ensambles) con valores destacados.
   - `resultados.docx`: Versión de resultados en formato Word.
+  - `diccionario_de_variables.md`: Definición formal de la variable objetivo y especificación de las 29 variables predictivas.
+  - `diccionario_de_variables.docx`: Versión del diccionario de variables en formato Word.
 - **`flujo_metodologico.drawio`**: Acceso directo en raíz al diagrama metodológico de Draw.io.
 - **`resultados.md`**: Acceso directo en raíz al compendio oficial de métricas de modelos individuales y ensambles.
 - **`prueba7.1/`**:
