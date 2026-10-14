@@ -76,3 +76,4 @@ Para cada grifo y cada día de enero, el modelo da una probabilidad sin saber lo
 ## Para la defensa:
 
 > “El modelo aprende de ejemplos pasados cuya respuesta ya se conoce: para cada grifo y día, si su precio cambió en los 5 días siguientes. Busca qué combinaciones de características (cuántas veces cambió antes, cuánto lleva sin cambiar, qué hace su región) separan a los que cambian de los que no. Para evaluarlo en un mes, solo aprende de los 6 meses anteriores y deja 6 días de separación, para que ninguna respuesta del entrenamiento dependa del mes evaluado.”
+
