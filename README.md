@@ -7,16 +7,14 @@ Repositorio de investigación y sustentación metodológica del modelo predictiv
 ## 📁 Estructura del Repositorio
 
 - **`flujo/`**:
-  - `flujo_metodologico.drawio`: Diagrama metodológico oficial para la sección de Metodología del artículo/tesis (editable en Draw.io, incluye arquitectura MLOps con bases de datos, flujos de ingesta y bucle de retroalimentación).
   - `historia_metodologia_tesis.md`: Documento maestro de sustentación metodológica y narrativa científica completa.
-  - `historia_metodologia_tesis.docx`: Versión ejecutiva en formato Word.
   - `resultados.md`: Compendio oficial de métricas comparativas (individuales y ensambles) con valores destacados.
-  - `resultados.docx`: Versión de resultados en formato Word.
   - `diccionario_de_variables.md`: Definición formal de la variable objetivo y especificación de las 29 variables predictivas.
-  - `diccionario_de_variables.docx`: Versión del diccionario de variables en formato Word.
   - `porque_no_balanceamos_la_data.md`: Sustentación metodológica y evidencia empírica de por qué no se aplica balanceo sintético (SMOTE).
   - `explicacion_purga_y_aprendizaje.md`: Explicación detallada de la purga temporal de 6 días y cómo aprenden los modelos y ensambles.
-- **`flujo_metodologico.drawio`**: Acceso directo en raíz al diagrama metodológico de Draw.io.
+  - Diagramas metodológicos y esquemas visuales de arquitectura (`.drawio`, `.png`, `.svg`).
+- **`flujo_words/`**:
+  - Versiones ejecutivas y cartas de gestión en formato Word (`.docx`): `historia_metodologia_tesis.docx`, `resultados.docx`, `diccionario_de_variables.docx`, `carta_solicitud_osinergmin.docx`, `guia_reunion_osinergmin.docx`.
 - **`resultados.md`**: Acceso directo en raíz al compendio oficial de métricas de modelos individuales y ensambles.
 - **`prueba7.1/`**:
   - `tesis_priorizacion_scop_v6.ipynb`: Cuaderno Jupyter con la implementación completa de la metodología (pipeline de datos, ingeniería de variables, modelos base, ensambles temporales y validación).
